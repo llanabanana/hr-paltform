@@ -18,12 +18,14 @@ Desktop.ini
 .env
 .env.*
 *.local
+src/main/resources/application.properties
 
 ### Java / Maven ###
 *.class
 *.jar
 *.war
-*.ear
+*.eargit add .
+git commit -m "Initial Spring Boot project setup"
 *.gz
 *.tmp
 
