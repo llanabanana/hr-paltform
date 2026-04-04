@@ -1,0 +1,65 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### OS files ###
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+### Logs ###
+*.log
+*.out
+*.err
+
+### Local env / secrets ###
+.env
+.env.*
+*.local
+
+### Java / Maven ###
+*.class
+*.jar
+*.war
+*.ear
+*.gz
+*.tmp
+
+### Build / test output ###
+bin/
+out/
+surefire-reports/
+failsafe-reports/
+test-output/
+hs_err_pid*
+replay_pid*
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
