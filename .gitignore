@@ -24,8 +24,7 @@ src/main/resources/application.properties
 *.class
 *.jar
 *.war
-*.eargit add .
-git commit -m "Initial Spring Boot project setup"
+*.ear
 *.gz
 *.tmp
 
