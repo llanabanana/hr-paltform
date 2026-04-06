@@ -172,6 +172,27 @@ class CandidateServiceTest {
         verify(candidateRepository, never()).save(any());
     }
 
+    @Test
+    void updateCandidateUpdatesExistingCandidate() {
+        Candidate existing = candidate("Jane Doe");
+        Candidate updates = candidate("Jane Smith");
+        when(candidateRepository.findById(1L)).thenReturn(Optional.of(existing));
+
+        Candidate result = candidateService.update(1L, updates);
+
+        assertEquals("Jane Smith", result.getFullName());
+    }
+
+    @Test
+    void updateCandidateThrowsWhenMissing() {
+        Candidate updates = candidate("Jane Smith");
+        when(candidateRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(ResponseStatusException.class, () -> candidateService.update(1L, updates));
+
+        verify(candidateRepository, never()).save(any());
+    }
+
     private Candidate candidate(String fullName) {
         Candidate candidate = new Candidate();
         candidate.setFullName(fullName);

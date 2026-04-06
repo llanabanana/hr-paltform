@@ -39,6 +39,15 @@ public class SkillService {
         skillRepository.deleteById(id);
     }
 
+    @Transactional
+    public Skill update(Long id, Skill updates) {
+        Skill skill = findSkillOrThrow(id);
+        if (updates.getName() != null) {
+            skill.setName(updates.getName());
+        }
+        return skill;
+    }
+
     private Skill findSkillOrThrow(Long id) {
         return skillRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Skill not found: " + id));

@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -101,6 +103,24 @@ class SkillControllerTest {
                 .andExpect(status().isNoContent());
 
         verify(skillService).delete(1L);
+    }
+
+    @Test
+    void updateSkillReturnsUpdatedSkill() throws Exception {
+        Skill skill = skill("Python");
+        when(skillService.update(eq(1L), any(Skill.class))).thenReturn(skill);
+
+        mockMvc.perform(put("/skills/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                          "name": "Python"
+                        }
+                        """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("Python"));
+
+        verify(skillService).update(eq(1L), any(Skill.class));
     }
 
     private Skill skill(String name) {

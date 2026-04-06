@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -132,6 +134,27 @@ class CandidateControllerTest {
                 .andExpect(status().isNoContent());
 
         verify(candidateService).removeSkill(1L, 10L);
+    }
+
+    @Test
+    void updateCandidateReturnsUpdatedCandidate() throws Exception {
+        Candidate candidate = candidate("Jane Smith");
+        when(candidateService.update(eq(1L), any(Candidate.class))).thenReturn(candidate);
+
+        mockMvc.perform(put("/candidates/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                          "fullName": "Jane Smith",
+                          "dateOfBirth": "1995-01-01",
+                          "contactNumber": "987654321",
+                          "email": "jane.smith@example.com"
+                        }
+                        """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.fullName").value("Jane Smith"));
+
+        verify(candidateService).update(eq(1L), any(Candidate.class));
     }
 
     private Candidate candidate(String fullName) {

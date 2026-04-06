@@ -61,6 +61,24 @@ public class CandidateService {
         return candidateRepository.save(candidate);
     }
 
+    @Transactional
+    public Candidate update(Long id, Candidate updates) {
+        Candidate candidate = findCandidateOrThrow(id);
+        if (updates.getFullName() != null) {
+            candidate.setFullName(updates.getFullName());
+        }
+        if (updates.getDateOfBirth() != null) {
+            candidate.setDateOfBirth(updates.getDateOfBirth());
+        }
+        if (updates.getContactNumber() != null) {
+            candidate.setContactNumber(updates.getContactNumber());
+        }
+        if (updates.getEmail() != null) {
+            candidate.setEmail(updates.getEmail());
+        }
+        return candidate;
+    }
+
     private Candidate findCandidateOrThrow(Long id) {
         return candidateRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found: " + id));

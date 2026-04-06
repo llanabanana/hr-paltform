@@ -82,6 +82,25 @@ class SkillServiceTest {
         verify(skillRepository).deleteById(1L);
     }
 
+    @Test
+    void updateSkillUpdatesExistingSkill() {
+        Skill existing = skill("Java");
+        Skill updates = skill("Python");
+        when(skillRepository.findById(1L)).thenReturn(Optional.of(existing));
+
+        Skill result = skillService.update(1L, updates);
+
+        assertEquals("Python", result.getName());
+    }
+
+    @Test
+    void updateSkillThrowsWhenMissing() {
+        Skill updates = skill("Python");
+        when(skillRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(ResponseStatusException.class, () -> skillService.update(1L, updates));
+    }
+
     private Skill skill(String name) {
         Skill skill = new Skill();
         skill.setName(name);
