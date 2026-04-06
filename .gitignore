@@ -18,7 +18,6 @@ Desktop.ini
 .env
 .env.*
 *.local
-src/main/resources/application.properties
 
 ### Java / Maven ###
 *.class
