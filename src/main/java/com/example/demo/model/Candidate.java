@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +14,7 @@ public class Candidate {
     private Long id;
 
     private String fullName;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private String contactNumber;
     private String email;
 
@@ -38,11 +38,11 @@ public class Candidate {
         this.fullName = fullName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
